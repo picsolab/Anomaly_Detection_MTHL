@@ -16,14 +16,21 @@ cPickle, numpy, time, sklearn, math
 
 ## Parameters
 
-p: the reduced dimensionality for feature
-q: the reduced dimensionality for timesteps
-lambda1: tradeoff parameter for anomaly pollution in hypersphere learning item
-lambda2: tradeoff parameter for the temporal smoothing item
-gamma: update step
-s: the time window parameter to guarantee temporal smoothing
-convergence: convergence tolerance
-tolerance: anomaly tolerance, e.g. only if a data point meets d^2 >= r^2*(1+tolerance) we can say it is anomalous
+```p```: the reduced dimensionality for feature
+
+```q```: the reduced dimensionality for timesteps
+
+```lambda1```: tradeoff parameter for anomaly pollution in hypersphere learning item
+
+```lambda2```: tradeoff parameter for the temporal smoothing item
+
+```gamma```: update step
+
+```s```: the time window parameter to guarantee temporal smoothing
+
+```convergence```: convergence tolerance
+
+```tolerance```: anomaly tolerance, e.g. only if a data point meets d^2 >= r^2*(1+tolerance) we can say it is anomalous
 
 ## Usage
 
