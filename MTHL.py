@@ -27,7 +27,7 @@ class MTHL(object):
 	def __init__(self,X,config):
 		
 		"""Args:
-			X: a list of input tensors with shape [#samples,#features,#timesteps]
+			X: an input tensors with shape [#views, #samples,#features,#timesteps]
 			p: reduced feature dimension
 			q: reduced time dimension
 			lambda1/.lambda2: tradeoff parameters
