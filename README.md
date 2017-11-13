@@ -41,4 +41,5 @@ cPickle, numpy, time, sklearn, math
 ## Citation
 
 If you make use of this code, please kindly cite our paper:
+
 Teng, X., Lin, Y.-R., Wen, X. (2017). "Anomaly Detection in Dynamic Networks using Multi-view Time-Series Hypersphere Learning." In Proceedings of  the 26th ACM International Conference on Information and Knowledge Management (CIKM 2017) https://doi.org/10.1145/3132847.3132964
