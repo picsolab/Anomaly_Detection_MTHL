@@ -28,7 +28,8 @@ tolerance: anomaly tolerance, e.g. only if a data point meets d^2 >= r^2*(1+tole
 ## Usage
 
 "train.pkl" and "test.pkl" are two example datasets, which contains both data and ground truth labels (for evaluation). To run MTHL algorithm on them, please try:
-python main.py
+
+```python main.py```
 
 ## Citation
 
