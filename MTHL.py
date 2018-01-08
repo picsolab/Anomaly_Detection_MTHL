@@ -106,15 +106,15 @@ class MTHL(object):
 		for v in range(self._V):
 			for i in range(self._m):
 				# update P[v]
-				tmp = self._Q[v].T.dot(self._X[v,i,:,:].T).dot(self._P[v]) - self._Y.T
-				tmp = self._X[v,i,:,:].dot(self._Q[v]).dot(tmp) * tau[v,i]
-				tmp = tmp + self._lambda2*self._X[v,i,:,:].dot(self._Lp).dot(self._X[v,i,:,:].T).dot(self._P[v])
+				tmp = self._Q[v].T.dot(self._X[v][i,:,:].T).dot(self._P[v]) - self._Y.T
+				tmp = self._X[v][i,:,:].dot(self._Q[v]).dot(tmp) * tau[v,i]
+				tmp = tmp + self._lambda2*self._X[v][i,:,:].dot(self._Lp).dot(self._X[v][i,:,:].T).dot(self._P[v])
 				tmp = tmp * 2
 				P[v] = P[v] + tmp
 				
 				# update Q[v]
-				tmp = self._P[v].T.dot(self._X[v,i,:,:]).dot(self._Q[v]) - self._Y
-				tmp = self._X[v,i,:,:].T.dot(self._P[v]).dot(tmp)
+				tmp = self._P[v].T.dot(self._X[v][i,:,:]).dot(self._Q[v]) - self._Y
+				tmp = self._X[v][i,:,:].T.dot(self._P[v]).dot(tmp)
 				tmp = tmp * 2 * tau[v,i]
 				Q[v] = Q[v] + tmp
 
@@ -130,7 +130,7 @@ class MTHL(object):
 
 	# bilinear projection via P.T*X*Q => YY
 	def _mapping(self,P,Q):
-		YY = np.array([[P[v].T.dot(self._X[v,i]).dot(Q[v]) for i in range(self._m)] for v in range(self._V)])
+		YY = np.array([[P[v].T.dot(self._X[v][i]).dot(Q[v]) for i in range(self._m)] for v in range(self._V)])
 		YY = YY.reshape((self._V*self._m,self._p,self._q)) # [V,m,p,q]
 		return YY # length=m*V
 
@@ -143,7 +143,7 @@ class MTHL(object):
 		# svdd term Eq(23)
 		svdd_obj = np.sum(np.array([(tau[i]+alpha[i])*KM[i,i]-np.sum(np.array([(tau[i]+alpha[i])*(tau[j]+alpha[j])*KM[i,j]*0.5 for j in range(n)])) for i in range(n)]))
 		# temporal smoothing term Eq(8)
-		temp = np.array([[np.trace(P[v].T.dot(self._X[v,i]).dot(self._Lp).dot(self._X[v,i].T).dot(self._P[v])) for i in range(self._m)] for v in range(self._V)])
+		temp = np.array([[np.trace(P[v].T.dot(self._X[v][i]).dot(self._Lp).dot(self._X[v][i].T).dot(self._P[v])) for i in range(self._m)] for v in range(self._V)])
 		obj = svdd_obj + np.sum(temp) * self._lambda2
 		
 		return obj,KM
@@ -199,7 +199,7 @@ class MTHL(object):
 	def predict(self,X,fg="score"):
 		"""Given a new dataset X, calculate distances (fg="score") or labels (fg="label")
 		"""
-		diff = [[self._P[v].T.dot(X[v,i]).dot(self._Q[v]) - self._Y for i in range(self._m)] for v in range(self._V)]
+		diff = [[self._P[v].T.dot(X[v][i]).dot(self._Q[v]) - self._Y for i in range(len(X[0)] for v in range(self._V)]
 		dist = np.array([[self._kernel(d,d) for d in diff[v]] for v in range(self._V)])
 		
 		if fg=="score":
